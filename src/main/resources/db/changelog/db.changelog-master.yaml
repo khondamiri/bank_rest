@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: 001_init.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: 002_add_card_status.sql
+      relativeToChangelogFile: true

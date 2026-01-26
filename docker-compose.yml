@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16
+    container_name: bankcards_db
+    environment:
+      POSTGRES_DB: bankcards
+      POSTGRES_USER: bankcards
+      POSTGRES_PASSWORD: bankcards
+    ports:
+      - "5433:5432"
+    volumes:
+      - bankcards_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bankcards -d bankcards"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  bankcards_pg:
