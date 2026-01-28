@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.bank_rest.dto.transfer.FundCardRequest;
 import org.example.bank_rest.dto.card.CardResponse;
 import org.example.bank_rest.dto.card.CreateCardRequest;
 import org.example.bank_rest.entity.CardStatus;
@@ -73,6 +74,17 @@ public class CardController {
     public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
         cardService.deleteCard(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Админ: пополнить карту")
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/{id}/fund")
+    public ResponseEntity<CardResponse> fundCard(
+            @PathVariable Long id,
+            @RequestBody @Valid FundCardRequest request
+    ) {
+        CardResponse updatedCard = cardService.fundCard(id, request.getAmount());
+        return ResponseEntity.ok(updatedCard);
     }
 
     // USER ENDPOINTS

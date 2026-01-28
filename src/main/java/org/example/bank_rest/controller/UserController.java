@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Пользователи")
+@Tag(name = "Пользователи", description = "Эндпоинты связанные с пользователями для админа")
 @RequestMapping("/api/users")
 @SecurityRequirement(name = "bearerAuth")
 public class UserController {

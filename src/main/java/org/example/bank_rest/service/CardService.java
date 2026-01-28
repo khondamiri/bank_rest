@@ -7,6 +7,7 @@ import org.example.bank_rest.entity.Card;
 import org.example.bank_rest.entity.CardStatus;
 import org.example.bank_rest.entity.User;
 import org.example.bank_rest.exception.AccessDeniedException;
+import org.example.bank_rest.exception.InactiveCardStatusException;
 import org.example.bank_rest.exception.ResourceNotFoundException;
 import org.example.bank_rest.repository.CardRepository;
 import org.example.bank_rest.repository.UserRepository;
@@ -86,6 +87,23 @@ public class CardService {
             throw new ResourceNotFoundException("Card not found with ID: " + cardId);
         }
         cardRepository.deleteById(cardId);
+    }
+
+    @Transactional
+    public CardResponse fundCard(Long cardId, BigDecimal amount) {
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new ResourceNotFoundException("Card not found with ID: " + cardId));
+
+        if (card.getStatus() != CardStatus.ACTIVE) {
+            throw new InactiveCardStatusException("Cannot fund a card that is not active. Current status: " + card.getStatus());
+        }
+
+        BigDecimal newBalance = card.getBalance().add(amount);
+        card.setBalance(newBalance);
+
+        Card savedCard = cardRepository.save(card);
+
+        return mapToDto(savedCard);
     }
 
     private CardResponse mapToDto(Card card) {
