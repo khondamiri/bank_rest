@@ -1,8 +1,8 @@
 package org.example.bank_rest.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.bank_rest.dto.request.AuthRequest;
-import org.example.bank_rest.dto.response.AuthResponse;
+import org.example.bank_rest.dto.auth.AuthRequest;
+import org.example.bank_rest.dto.auth.AuthResponse;
 import org.example.bank_rest.entity.Role;
 import org.example.bank_rest.entity.User;
 import org.example.bank_rest.exception.UserAlreadyExistsException;
@@ -34,7 +34,6 @@ public class AuthService {
                 .username(request.getUsername())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
-                .createdAt(LocalDateTime.now())
                 .build();
 
         userRepository.save(user);

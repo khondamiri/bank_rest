@@ -1,4 +1,4 @@
-package org.example.bank_rest.dto.request;
+package org.example.bank_rest.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

@@ -31,7 +31,7 @@ public class JwtUtil {
 
     public String validateTokenAndGetUsername(String token) throws JWTVerificationException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
-                .withSubject("bank_rest")
+                .withIssuer("bank_rest")
                 .build();
 
         DecodedJWT decodedJWT = verifier.verify(token);

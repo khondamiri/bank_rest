@@ -19,7 +19,13 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
-
 jwt:
   secret: KSJFGHHG43UHFP9239F8HWEC98HH3478YFP279H3P9U8EWP98WHF348HNFQWDKOWQJOIDW2
   expiration: 60
+
+app:
+  security:
+    data-key: "1234567890123456"
+  admin:
+    username: "admin1"
+    password: "admin1"

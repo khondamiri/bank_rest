@@ -1,4 +1,4 @@
-package org.example.bank_rest.dto.response;
+package org.example.bank_rest.dto.auth;
 
 import lombok.*;
 
